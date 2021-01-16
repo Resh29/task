@@ -1,3 +1,5 @@
+@import '~materialize-css/dist/css/materialize.min.css';
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +12,53 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.collapsible-header {
+  flex-direction: column;
+  position: relative;
+}
+.collapsible-header h6 {
+  margin-top: 0;
+}
+
+.to-detail {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: block;
+}
+
+.open {
+  display: block;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+.loader .preloader-wrapper {
+  margin: auto;
+}
+
+.main {
+  height: 100vh;
+  padding-top: 2rem;
+}
+
+.navbar {
+  padding: 0 2rem;
+}
+
+.tabs .indicator {
+  background-color: #3f51b5;
+}
+.tabs .tab .active {
+  background-color: #c5cae9 !important;
+}
+
+.sidenav-open {
+  transform: translateX(0%);
 }
