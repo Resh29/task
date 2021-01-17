@@ -22,7 +22,6 @@ const db = firebase.database();
 
 function App() {
   const { state, setState, isAdmin, setIsAdmin } = useContext(AuthContext);
-  // const [isAdmin, setIsAdmin] = useState(false);
 
   firebase.auth().onAuthStateChanged((user) => {
     async function getUserInfo(uid) {

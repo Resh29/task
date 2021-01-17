@@ -17,7 +17,7 @@ export const Header = () => {
 
   const sidenav = useRef(null);
 
-  const { state, setState } = useContext(AuthContext);
+  const { state, setState, isAdmin } = useContext(AuthContext);
 
   const logout = () => {
     // localStorage.removeItem('currentUser');
@@ -50,6 +50,12 @@ export const Header = () => {
                 <li>
                   <NavLink to="/my_list"> My tasks list </NavLink>
                 </li>
+                {isAdmin ? (
+                  <li>
+                    <NavLink to="/create"> Create new tasks </NavLink>
+                  </li>
+                ) : null}
+
                 <li>
                   <a
                     href="#"

@@ -1,13 +1,13 @@
 import firebase from 'firebase/app';
 
-export const useSetData = (path, data) => {
+export const useSetData = () => {
   const db = firebase.database();
 
-  async function set() {
+  async function set(path, data) {
     await db
       .ref(path)
       .set(data)
       .catch((e) => console.error(e));
   }
-  set();
+  return set;
 };

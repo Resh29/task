@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { TasksList } from '../components/TasksList';
 import firebase from 'firebase';
 import { useSetData } from '../hooks/db.set';
+import { useMessage } from '../hooks/message.hook';
 
 export const Create = () => {
   const [state, setState] = useState(null);
+  const message = useMessage();
 
   const localState = () => {
     return JSON.parse(localStorage.getItem('newTasks')) || [];
@@ -33,8 +35,6 @@ export const Create = () => {
     e.target.reset();
   };
 
-  const set = useSetData('/test', { test: 'done' });
-
   const saveTasks = async () => {
     try {
       for (const task of tasks) {
@@ -51,9 +51,11 @@ export const Create = () => {
           .set(taskNumber + 1);
       }
 
+      message('tasks-add');
+
       deleteTasks();
     } catch (error) {
-      console.log(error);
+      message(error.code);
     }
   };
   const deleteTasks = () => {

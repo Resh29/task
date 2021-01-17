@@ -9,9 +9,6 @@ import { PersonalList } from './pages/PersonalList';
 
 export const useRoutes = () => {
   const { state, isAdmin, changeToken } = useContext(AuthContext);
-  useEffect(() => {
-    console.log(isAdmin);
-  });
 
   return (
     <Switch>

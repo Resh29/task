@@ -1,14 +1,57 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { DataContext } from '../context/DataContext';
 import { useSetData } from '../hooks/db.set';
+import { useMessage } from '../hooks/message.hook';
+import firebase from 'firebase';
 
-export const TaskItem = ({ props, someVoid }) => {
+export const TaskItem = ({ props }) => {
   const [style, setStyle] = useState('collapsible-body');
   const { state } = useContext(AuthContext);
-  const set = useSetData;
-  function setData() {
-    set(`users/${state.uid}/tasks/${props.taskId}`, props);
-  }
+  const setData = useSetData();
+  const [setState] = useContext(DataContext);
+  const message = useMessage();
+
+  const changeDataHandler = async () => {
+    const updateDataState = {
+      ...props,
+      status: 'progress',
+    };
+
+    try {
+      const currentDatabaseTaskItemValue = (
+        await firebase
+          .database()
+          .ref(`/tasks/${props.taskNumber}/status`)
+          .once('value')
+      ).val();
+      console.log(currentDatabaseTaskItemValue);
+      if (currentDatabaseTaskItemValue === 'awaiting') {
+        setState([]);
+        setData(
+          `/tasks/${updateDataState.taskNumber}/status`,
+          updateDataState.status
+        );
+        setData(
+          `/users/${state.uid}/tasks/${updateDataState.taskNumber}`,
+          updateDataState
+        );
+        const fetchedData = (
+          await firebase.database().ref(`/tasks`).once('value')
+        ).val();
+        const data = Object.keys(fetchedData).map((key) => ({
+          ...fetchedData[key],
+          taskNumber: key,
+        }));
+        setState(data);
+        message('personal-list-task-add');
+      } else {
+        message('task-already-in-progress');
+      }
+    } catch (error) {
+      message();
+    }
+  };
 
   function toggle() {
     !style.includes('open')
@@ -25,7 +68,7 @@ export const TaskItem = ({ props, someVoid }) => {
               className="text-green small material-icons"
               onClick={(e) => {
                 e.preventDefault();
-                someVoid(props);
+                changeDataHandler();
               }}
             >
               done

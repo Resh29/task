@@ -4,20 +4,28 @@ import { TasksList } from '../components/TasksList';
 import { Loader } from '../components/Loader';
 import { useFetchData } from '../hooks/db.get';
 import { DataContext } from '../context/DataContext';
+import { useLoading } from '../hooks/loading.hook';
 
 export const HomePage = () => {
-  const [awaiting, setAwaiting] = useState([]);
+  // const [awaiting, setAwaiting] = useState([]);
 
-  const [inProgress, setinProgress] = useState([]);
-  const [done, setDone] = useState([]);
-  // const [state, setState] = useContext(DataContext);
+  // const [inProgress, setinProgress] = useState([]);
+  // const [done, setDone] = useState([]);
+
   const [data, loading] = useFetchData('/tasks');
+  const [setState, awaiting, inProgress, done] = useContext(DataContext);
 
   useEffect(() => {
-    setAwaiting(data.filter((task) => task.status === 'awaiting'));
-    setDone(data.filter((task) => task.status === 'done'));
-    setinProgress(data.filter((task) => task.status === 'progress'));
-  }, [data]);
+    if (data) {
+      setState(data);
+    }
+
+    //   // if (stateData) {
+    //   //   setAwaiting(stateData.filter((task) => task.status === 'awaiting'));
+    //   //   setDone(stateData.filter((task) => task.status === 'done'));
+    //   //   setinProgress(stateData.filter((task) => task.status === 'progress'));
+    //   // }
+  }, [data, setState]);
 
   return (
     <>
@@ -25,7 +33,7 @@ export const HomePage = () => {
         <Loader />
       ) : (
         <>
-          {awaiting.length ? (
+          {data ? (
             <div className="row">
               <div className="col s12 m4">
                 <TasksList
