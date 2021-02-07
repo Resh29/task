@@ -1,36 +1,45 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import { useMessage } from './message.hook';
+import { DataContext } from '../context/DataContext';
 
-export const useFetchData = (path) => {
+export const useFetchData = () => {
   const db = firebase.database();
-  const [data, setData] = useState([]);
+
   const [loading, setLoading] = useState(true);
+  const [setState, contextData] = useContext(DataContext);
   const message = useMessage();
 
-  useEffect(() => {
-    async function get() {
-      try {
-        const data = (await db.ref(`${path}`).once('value')).val();
+  async function get(path, date) {
+    const now = date || new Date(Date.now()).toLocaleDateString();
+    try {
+      const data = (
+        await db.ref(`${path}`).orderByChild('date').equalTo(now).once('value')
+      ).val();
 
-        if (data) {
-          const res = Object.keys(data).map((key) => ({
-            ...data[key],
-            taskNumber: key,
-          }));
+      if (data) {
+        const res = Object.keys(data).map((key) => ({
+          ...data[key],
+          taskNumber: key,
+        }));
+        const keys = [...new Set([...res].map((el) => el.status))];
+        const filteredData = [];
+        keys.forEach((item) =>
+          filteredData.push([...res.filter((el) => el.status === item)])
+        );
 
-          setData(res);
-        } else {
-          message('При загрузке данных');
-        }
-      } catch (error) {
-        message();
-        throw error;
-      } finally {
-        setLoading(false);
+        setState(filteredData.reverse());
+      } else {
+        message('no-data');
+        setState([]);
       }
+    } catch (error) {
+      message();
+      throw error;
+    } finally {
+      setLoading(false);
     }
-    get();
-  }, [db, path]);
-  return [data, loading, message];
+  }
+
+  return [get, loading];
 };

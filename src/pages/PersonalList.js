@@ -1,63 +1,68 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-import firebase from 'firebase/app';
 import { TasksList } from '../components/TasksList';
 import { useFetchData } from '../hooks/db.get';
 import { Loader } from '../components/Loader';
+import { ListFilter } from '../components/ListFilter';
+import { DataContext } from '../context/DataContext';
 
 export const PersonalList = () => {
   const tabs = useRef(null);
   const { state, changeToken } = useContext(AuthContext);
-  const [data, loading] = useFetchData(`users/${state.uid}/tasks`);
+  const [setState, stateData] = useContext(DataContext);
+  const [getData, loading] = useFetchData();
 
   useEffect(() => {
-    if (window.M) {
-      const instance = window.M.Tabs.init(tabs.current);
-    }
-  });
+    getData(`/users/${state.uid}/tasks`);
+  }, []);
+
+  function dataFilter(value) {
+    getData(`/users/${state.uid}/tasks`, value);
+  }
 
   return (
-    <div className="row">
-      <h1>Мои заявочки...</h1>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <ul className="tabs" ref={tabs}>
-            <li className="tab col s3">
-              <a href="#progress" className="indigo-text">
-                В работе
-              </a>
-            </li>
-            <li className="tab col s3">
-              <a href="#done" className="indigo-text">
-                {' '}
-                Выполнено{' '}
-              </a>
-            </li>
-          </ul>
-
-          {data.length ? (
-            <>
-              <div id="progress">
-                <TasksList
-                  props={{
-                    class: 'white black-text',
-                    header: 'Some tasks',
-                    tasks: data,
-                  }}
-                />
-              </div>
-              <div id="done">
-                <p>Nothing to do there</p>
-              </div>
-            </>
-          ) : (
-            <p> Здесь пока ничего нет... </p>
-          )}
-        </>
-      )}
-    </div>
+    <>
+      <p> Урурур </p>
+      <hr />
+      <ListFilter submitAction={dataFilter} />
+      <div className="row">
+        <h3>Мои заявочки...</h3>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <ul className="tabs" ref={tabs}>
+              {stateData.length
+                ? stateData.map((item) => {
+                    return (
+                      <li className="tab col s3 m6" key={item[0].taskId}>
+                        <a href={'#' + item[0].status} className="indigo-text">
+                          {item[0].status}
+                        </a>
+                      </li>
+                    );
+                  })
+                : null}
+            </ul>
+            {stateData.length
+              ? stateData.map((item) => {
+                  return (
+                    <div key={item[0].taskId} id={item[0].status}>
+                      <TasksList
+                        props={{
+                          class: 'white black-text',
+                          header: item[0].status,
+                          tasks: item,
+                        }}
+                      />
+                    </div>
+                  );
+                })
+              : null}
+          </>
+        )}
+      </div>
+    </>
   );
 };

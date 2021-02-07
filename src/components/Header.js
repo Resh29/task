@@ -7,6 +7,7 @@ import { useMessage } from '../hooks/message.hook';
 export const Header = () => {
   const history = useHistory();
   const message = useMessage();
+  const { state, setState, isAdmin } = useContext(AuthContext);
   useEffect(() => {
     if (window.M) {
       const elems = document.querySelectorAll('.sidenav');
@@ -17,10 +18,7 @@ export const Header = () => {
 
   const sidenav = useRef(null);
 
-  const { state, setState, isAdmin } = useContext(AuthContext);
-
   const logout = () => {
-    // localStorage.removeItem('currentUser');
     setState(null);
     history.push('/auth');
     firebase
@@ -43,7 +41,7 @@ export const Header = () => {
               <a href="#" data-target="mobile-demo" className="sidenav-trigger">
                 <i className="material-icons">menu</i>
               </a>
-              <ul className="right ">
+              <ul className="right">
                 <li>
                   <NavLink to="/"> Home </NavLink>
                 </li>
@@ -80,6 +78,11 @@ export const Header = () => {
         <li>
           <NavLink to="/my_list"> My tasks list </NavLink>
         </li>
+        {isAdmin ? (
+          <li>
+            <NavLink to="/create"> Create new tasks </NavLink>
+          </li>
+        ) : null}
         <li>
           <a
             href="#"
@@ -88,8 +91,7 @@ export const Header = () => {
               logout();
             }}
           >
-            {' '}
-            Logout{' '}
+            Logout
           </a>
         </li>
       </ul>

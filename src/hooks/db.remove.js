@@ -8,7 +8,7 @@ export const useRemoveData = () => {
     try {
       await db.ref(path).remove();
     } catch (error) {
-      message();
+      message(error.message);
     }
   }
   return remove;

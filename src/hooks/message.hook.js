@@ -9,6 +9,11 @@ export const useMessage = () => {
     'personal-list-task-add': 'Заявка взфта в работу',
     'task-already-in-progress':
       'Oops, заявка уже в работе... Обновите страницу',
+    'no-data': 'Нет данных...',
+    'task-remove': 'Заявка была удалена...',
+    'saved-successfully': 'Заявка успешно сохранена',
+    'save-error': "Неудалось сохранить заявку, заполните поле 'комментарий'",
+    'limited-by-user-rights': 'Действие ограничено вашими правами пользователя',
   };
   function f(message = '') {
     if (window.M) {

@@ -22,19 +22,23 @@ const db = firebase.database();
 
 function App() {
   const { state, setState, isAdmin, setIsAdmin } = useContext(AuthContext);
+  const [authState, setAuthState] = useState(false);
 
-  firebase.auth().onAuthStateChanged((user) => {
-    async function getUserInfo(uid) {
-      const result = (await db.ref(`users/${uid}`).once('value')).val();
-      setIsAdmin(result.isAdmin);
-    }
-    if (user) {
-      setState(user);
-      getUserInfo(user.uid);
-    } else {
-      firebase.auth().signOut();
-    }
-  });
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      async function getUserInfo(uid) {
+        const result = (await db.ref(`users/${uid}`).once('value')).val();
+        setIsAdmin(result.isAdmin);
+      }
+      if (user) {
+        setAuthState(!authState);
+        setState(user);
+        getUserInfo(user.uid);
+      } else {
+        firebase.auth().signOut();
+      }
+    });
+  }, []);
 
   const routes = useRoutes();
 
@@ -42,7 +46,11 @@ function App() {
     <div className="App" style={{ height: '100vh' }}>
       <Router>
         <Header />
-        {state ? <div className="main container">{routes}</div> : <AuthPage />}
+        {authState ? (
+          <div className="main container">{routes}</div>
+        ) : (
+          <AuthPage />
+        )}
       </Router>
     </div>
   );
