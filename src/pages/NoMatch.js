@@ -10,7 +10,7 @@ export const NoMatch = () => {
         Error <span className="text-red">404</span>: page is not found!
       </h1>
       <button
-        className="btn"
+        className="btn blue"
         onClick={() => {
           history.push('/');
         }}

@@ -179,12 +179,10 @@ export const Create = () => {
         }}
       >
         <button className="btn" onClick={saveTasks}>
-          {' '}
-          Save{' '}
+          Save
         </button>
         <button className="btn red" onClick={deleteTasks}>
-          {' '}
-          Delete{' '}
+          Delete
         </button>
       </div>
     </div>

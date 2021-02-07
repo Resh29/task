@@ -1,67 +1,50 @@
-import { React, useState, useEffect, useContext } from 'react';
+import { React, useEffect, useContext, useCallback } from 'react';
 import { TasksList } from '../components/TasksList';
 
 import { Loader } from '../components/Loader';
 import { useFetchData } from '../hooks/db.get';
 import { DataContext } from '../context/DataContext';
-import { useLoading } from '../hooks/loading.hook';
+import { ListFilter } from '../components/ListFilter';
 
 export const HomePage = () => {
-  // const [awaiting, setAwaiting] = useState([]);
+  const [getData, loading] = useFetchData();
 
-  // const [inProgress, setinProgress] = useState([]);
-  // const [done, setDone] = useState([]);
-
-  const [data, loading] = useFetchData('/tasks');
-  const [setState, awaiting, inProgress, done] = useContext(DataContext);
-
+  const [setState, stateData] = useContext(DataContext);
   useEffect(() => {
-    if (data) {
-      setState(data);
-    }
+    getData('/tasks');
+    return function clean() {
+      setState([]);
+    };
+  }, []);
 
-    //   // if (stateData) {
-    //   //   setAwaiting(stateData.filter((task) => task.status === 'awaiting'));
-    //   //   setDone(stateData.filter((task) => task.status === 'done'));
-    //   //   setinProgress(stateData.filter((task) => task.status === 'progress'));
-    //   // }
-  }, [data, setState]);
+  function dataFilter(value) {
+    getData('/tasks', value);
+  }
 
   return (
     <>
+      <p className="flow-text"> Good day </p>
+      <hr />
       {loading ? (
         <Loader />
       ) : (
         <>
-          {data ? (
+          <ListFilter submitAction={dataFilter} />
+          {stateData.length ? (
             <div className="row">
-              <div className="col s12 m4">
-                <TasksList
-                  props={{
-                    class: 'white black-text',
-                    header: 'Awaiting',
-                    tasks: awaiting,
-                  }}
-                />
-              </div>
-              <div className="col s12 m4">
-                <TasksList
-                  props={{
-                    class: 'blue white-text',
-                    header: 'In progress',
-                    tasks: inProgress,
-                  }}
-                />
-              </div>
-              <div className="col s12 m4">
-                <TasksList
-                  props={{
-                    class: 'green white-text',
-                    header: 'Done',
-                    tasks: done,
-                  }}
-                />
-              </div>
+              {stateData.map((item) => {
+                return (
+                  <div className="col s12 m12 l4" key={item[0].taskId}>
+                    <TasksList
+                      props={{
+                        class: `status-${item[0].status}`,
+                        header: item[0].status.toUpperCase(),
+                        tasks: item,
+                      }}
+                    />
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <p>No tasks </p>

@@ -6,6 +6,7 @@ import { Create } from './pages/CreatePage';
 import { HomePage } from './pages/Home';
 import { NoMatch } from './pages/NoMatch';
 import { PersonalList } from './pages/PersonalList';
+import { SinglePage } from './pages/SinglePage';
 
 export const useRoutes = () => {
   const { state, isAdmin, changeToken } = useContext(AuthContext);
@@ -23,6 +24,9 @@ export const useRoutes = () => {
       </Route>
       <Route path="/create">
         <Create />
+      </Route>
+      <Route path="/task/:id">
+        <SinglePage />
       </Route>
 
       <Route path="*" exact>

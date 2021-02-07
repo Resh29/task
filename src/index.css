@@ -45,7 +45,6 @@ code {
 
 .main {
   height: 100vh;
-  padding-top: 2rem;
 }
 
 .navbar {
@@ -59,6 +58,44 @@ code {
   background-color: #c5cae9 !important;
 }
 
-.sidenav-open {
-  transform: translateX(0%);
+.date-filter {
+  transition: all 0.4s;
+  max-height: 200px;
+
+  overflow: hidden;
+}
+
+.date-filter-toggler {
+  display: none;
+}
+
+.status-progress {
+  background-color: #42a5f5 !important;
+  color: #fff;
+}
+.status-awaiting {
+  background-color: #e0e0e0 !important;
+}
+.status-done {
+  background-color: #00e676 !important;
+  color: #fff;
+}
+
+.single {
+  height: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  .nav-wrapper .right {
+    visibility: hidden;
+    max-height: 1px;
+  }
+  .date-filter-toggler {
+    display: block;
+  }
+}
+@media screen and (max-width: 992px) {
+  .date-filter-close {
+    max-height: 0px;
+  }
 }
