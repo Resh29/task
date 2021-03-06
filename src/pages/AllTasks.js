@@ -1,34 +1,26 @@
-import { React, useEffect, useContext, useCallback } from 'react';
-import { TasksList } from '../components/TasksList';
-import firebase from 'firebase';
-import { Loader } from '../components/Loader';
-import { useFetchData } from '../hooks/db.get';
+import React, { useEffect, useContext } from 'react';
 import { DataContext } from '../context/DataContext';
-import { ListFilter } from '../components/ListFilter';
+import { useFetchData } from '../hooks/db.get';
+import { Loader } from '../components/Loader';
+import { TasksList } from '../components/TasksList';
 
-export const HomePage = () => {
+export const AllTasks = () => {
   const [getData, loading] = useFetchData();
-
   const [setState, stateData] = useContext(DataContext);
   useEffect(() => {
-    getData('/tasks');
+    getData('/tasks', 'all');
   }, []);
-
-  function dataFilter(value) {
-    getData('/tasks', value);
-  }
 
   return (
     <>
-      <p className="flow-text"> Добро пожаловать... Снова </p>
+      <h1> Управление заявками </h1>
       <hr />
       {loading ? (
         <Loader />
       ) : (
-        <>
-          <ListFilter submitAction={dataFilter} />
+        <div className="row">
           {stateData.length ? (
-            <div className="row">
+            <>
               {stateData.map((item) => {
                 return (
                   <div className="col s12 m12 l4" key={item[0].taskId}>
@@ -41,12 +33,12 @@ export const HomePage = () => {
                     />
                   </div>
                 );
-              })}
-            </div>
+              })}{' '}
+            </>
           ) : (
-            <p>No tasks </p>
+            <p className="grey-text flow-text"> Здесь пока ничего нет... </p>
           )}
-        </>
+        </div>
       )}
     </>
   );

@@ -20,8 +20,7 @@ export const SinglePage = () => {
   const [getData, data, loading] = useGetSingleTask();
   useEffect(() => {
     getData(`/tasks/${location.state}`);
-    return () => getData();
-  }, [data, loading, location.state]);
+  }, []);
 
   const changeHandler = (e) => {
     setComment(e.target.value);
@@ -70,9 +69,7 @@ export const SinglePage = () => {
           <div className="row">
             <p className="flow-text">
               Заявка # {data.taskNumber}
-              <span className="badge grey lighten-4">
-                Статус: {data.status}
-              </span>
+              <span className="badge grey lighten-4">Статус: {data.status}</span>
             </p>
             <h4 className="title">{data.title}</h4>
             <ul className="collection">
@@ -111,11 +108,7 @@ export const SinglePage = () => {
                     />
                     <span
                       className="grey-text"
-                      style={
-                        comment.length >= minLength
-                          ? { opacity: '0' }
-                          : { opacity: '1' }
-                      }
+                      style={comment.length >= minLength ? { opacity: '0' } : { opacity: '1' }}
                     >
                       Комментарий не должен быть короче {minLength} символов
                     </span>
@@ -132,18 +125,10 @@ export const SinglePage = () => {
                 padding: '1rem',
               }}
             >
-              <button
-                className="btn blue"
-                onClick={saveTasks}
-                disabled={data.comment}
-              >
+              <button className="btn blue" onClick={saveTasks} disabled={data.comment}>
                 Сохранить
               </button>
-              <button
-                className="btn red"
-                onClick={deleteTasks}
-                disabled={data.comment && !isAdmin}
-              >
+              <button className="btn red" onClick={deleteTasks} disabled={data.comment && !isAdmin}>
                 Удалить
               </button>
             </div>

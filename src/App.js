@@ -23,6 +23,7 @@ const db = firebase.database();
 function App() {
   const { state, setState, isAdmin, setIsAdmin } = useContext(AuthContext);
   const [authState, setAuthState] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -34,8 +35,10 @@ function App() {
         setAuthState(!authState);
         setState(user);
         getUserInfo(user.uid);
+        setLoading(false);
       } else {
         firebase.auth().signOut();
+        setLoading(false);
       }
     });
   }, []);
@@ -43,13 +46,17 @@ function App() {
   const routes = useRoutes();
 
   return (
-    <div className="App" style={{ height: '100vh' }}>
+    <div className="App">
       <Router>
         <Header />
-        {authState ? (
+        {loading ? (
+          <Loader props={{ color: 'spinner-green-only', size: 'big' }} />
+        ) : authState ? (
           <div className="main container">{routes}</div>
         ) : (
-          <AuthPage />
+          <div className="main container">
+            <AuthPage />
+          </div>
         )}
       </Router>
     </div>

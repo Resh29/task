@@ -38,9 +38,7 @@ export const Create = () => {
   const saveTasks = async () => {
     try {
       for (const task of tasks) {
-        let taskNumber = (
-          await firebase.database().ref('task_number').once('value')
-        ).val();
+        let taskNumber = (await firebase.database().ref('task_number').once('value')).val();
         await firebase
           .database()
           .ref(`tasks/${taskNumber + 1}`)
@@ -64,67 +62,35 @@ export const Create = () => {
   };
   return (
     <div className="row">
-      <form
-        className="col s12"
-        style={{ marginTop: '2rem' }}
-        onSubmit={addTask}
-      >
+      <form className="col s12" style={{ marginTop: '2rem' }} onSubmit={addTask}>
         <h3> New task </h3>
         <div className="row">
           <div className="input-field col s12 m6">
-            <input
-              id="title"
-              type="text"
-              name="title"
-              required
-              className="validate"
-              onChange={changeHandler}
-            />
-            <label htmlFor="title">title</label>
+            <input id="title" type="text" name="title" required className="validate" onChange={changeHandler} />
+            <label htmlFor="title">Заголовок</label>
           </div>
           <div className="input-field col s12 m6">
+            <label htmlFor="type"></label>
             <select name="type" id="type" required onChange={changeHandler}>
               <option selected disabled required>
-                {' '}
-                Choose task type{' '}
+                Выберите тип заявки
               </option>
-              <option defaultValue="repair">repair</option>
-              <option defaultValue="build">build</option>
-              <option defaultValue="distroy">distroy</option>
+              <option defaultValue="Ремонт">Ремонт</option>
+              <option defaultValue="Монтаж">Монтаж</option>
+              <option defaultValue="Демонтаж">Демонтаж</option>
             </select>
           </div>
           <div className="input-field col s12 m6">
-            <input
-              required
-              id="address"
-              type="text"
-              name="address"
-              className="validate"
-              onChange={changeHandler}
-            />
-            <label htmlFor="address">address</label>
+            <input required id="address" type="text" name="address" className="validate" onChange={changeHandler} />
+            <label htmlFor="address">Адрес</label>
           </div>
           <div className="input-field col s12 m6">
-            <input
-              required
-              id="techInfo"
-              type="text"
-              name="techInfo"
-              className="validate"
-              onChange={changeHandler}
-            />
-            <label htmlFor="techInfo">techInfo</label>
+            <input required id="techInfo" type="text" name="techInfo" className="validate" onChange={changeHandler} />
+            <label htmlFor="techInfo">Техинформация</label>
           </div>
           <div className="input-field col s12 m6">
-            <input
-              required
-              id="customer"
-              type="text"
-              name="customer"
-              className="validate"
-              onChange={changeHandler}
-            />
-            <label htmlFor="customer">customer</label>
+            <input required id="customer" type="text" name="customer" className="validate" onChange={changeHandler} />
+            <label htmlFor="customer">Клиент</label>
           </div>
           <div className="input-field col s12 m6">
             <input
@@ -135,7 +101,7 @@ export const Create = () => {
               className="validate"
               onChange={changeHandler}
             />
-            <label htmlFor="customerId">customerId</label>
+            <label htmlFor="customerId">ID клиента</label>
           </div>
           <div className="input-field col s12 m6">
             <textarea
@@ -153,14 +119,9 @@ export const Create = () => {
               </span>
             ) : null}
 
-            <label htmlFor="text">text</label>
+            <label htmlFor="text"> Текст заявки </label>
           </div>
-          <input
-            type="submit"
-            value="Add task"
-            className="btn"
-            style={{ marginLeft: '1rem' }}
-          />
+          <input type="submit" value="Добавить" className="btn" style={{ marginLeft: '1rem' }} />
         </div>
       </form>
 
@@ -178,11 +139,11 @@ export const Create = () => {
           padding: '1rem',
         }}
       >
-        <button className="btn" onClick={saveTasks}>
-          Save
+        <button className="btn" onClick={saveTasks} disabled={!tasks.length}>
+          Сохранить
         </button>
         <button className="btn red" onClick={deleteTasks}>
-          Delete
+          Удалить
         </button>
       </div>
     </div>

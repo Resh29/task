@@ -1,29 +1,31 @@
-import { React, useContext, useEffect } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { AuthContext } from './context/AuthContext';
+import { React } from 'react';
+import { Route, Switch } from 'react-router-dom';
+
 import { AuthPage } from './pages/AuthPage';
 import { Create } from './pages/CreatePage';
 import { HomePage } from './pages/Home';
 import { NoMatch } from './pages/NoMatch';
 import { PersonalList } from './pages/PersonalList';
 import { SinglePage } from './pages/SinglePage';
+import { AllTasks } from './pages/AllTasks';
 
 export const useRoutes = () => {
-  const { state, isAdmin, changeToken } = useContext(AuthContext);
-
   return (
     <Switch>
       <Route path="/" exact>
-        {state ? <HomePage /> : <Redirect to="/auth" />}
+        <HomePage />
       </Route>
       <Route path="/my_list" exact>
-        {state ? <PersonalList /> : <Redirect to="/auth" />}
+        <PersonalList />
       </Route>
       <Route path="/auth">
         <AuthPage />
       </Route>
       <Route path="/create">
         <Create />
+      </Route>
+      <Route path="/all">
+        <AllTasks />
       </Route>
       <Route path="/task/:id">
         <SinglePage />
