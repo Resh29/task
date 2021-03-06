@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import firebase from 'firebase/app';
 import { useMessage } from './message.hook';
 import { DataContext } from '../context/DataContext';
@@ -8,14 +8,18 @@ export const useFetchData = () => {
 
   const [loading, setLoading] = useState(true);
   const [setState, contextData] = useContext(DataContext);
+
   const message = useMessage();
 
   async function get(path, date) {
     const now = date || new Date(Date.now()).toLocaleDateString();
     try {
-      const data = (
-        await db.ref(`${path}`).orderByChild('date').equalTo(now).once('value')
-      ).val();
+      let data = {};
+      if (date === 'all') {
+        data = (await db.ref(`${path}`).once('value')).val();
+      } else {
+        data = (await db.ref(`${path}`).orderByChild('date').equalTo(now).once('value')).val();
+      }
 
       if (data) {
         const res = Object.keys(data).map((key) => ({
@@ -24,10 +28,8 @@ export const useFetchData = () => {
         }));
         const keys = [...new Set([...res].map((el) => el.status))];
         const filteredData = [];
-        keys.forEach((item) =>
-          filteredData.push([...res.filter((el) => el.status === item)])
-        );
-
+        keys.forEach((item) => filteredData.push([...res.filter((el) => el.status === item)]));
+        console.log(filteredData);
         setState(filteredData.reverse());
       } else {
         message('no-data');

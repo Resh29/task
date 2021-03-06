@@ -1,10 +1,10 @@
 import React from 'react';
 
-export const Loader = () => {
+export const Loader = ({ props }) => {
   return (
     <div className="loader">
-      <div className="preloader-wrapper big active">
-        <div className="spinner-layer spinner-blue-only">
+      <div className={props?.size ? `preloader-wrapper ${props.size} active` : 'preloader-wrapper  active'}>
+        <div className={props?.color ? `spinner-layer ${props.color}` : 'spinner-layer spinner-blue-only'}>
           <div className="circle-clipper left">
             <div className="circle"></div>
           </div>

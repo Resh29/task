@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { TaskItem } from './TaskItem';
 import { AuthContext } from '../context/AuthContext';
 import { DataContext } from '../context/DataContext';
@@ -9,28 +9,26 @@ import { useUpdateData } from '../hooks/db.update';
 
 export const TasksList = ({ props = { class: '', header: '', tasks: [] } }) => {
   const setData = useSetData();
-  const [setState] = useContext(DataContext);
   const message = useMessage();
   const setUpdate = useUpdateData();
-  const [styles, setStyles] = useState([props.class, 'collection-header']);
-  const [currentStyles, setCurr] = useState(
-    styles.toString().split(',').join(' ')
-  );
+  const [list, setList] = useState([]);
 
-  const { state, isAdmin, changeToken } = useContext(AuthContext);
+  useEffect(() => {
+    setList(props.tasks);
+  }, [props]);
+
+  const { state } = useContext(AuthContext);
 
   const updateData = async (object) => {
+    const name = (await firebase.database().ref(`/users/${state.uid}/info/name`).once('value')).val();
+
     const updated = {
       ...object,
       status: 'progress',
+      name,
     };
     try {
-      const check = (
-        await firebase
-          .database()
-          .ref(`/tasks/${object.taskNumber}/status`)
-          .once('value')
-      ).val();
+      const check = (await firebase.database().ref(`/tasks/${object.taskNumber}/status`).once('value')).val();
 
       if (check !== 'awaiting') {
         message('task-already-in-progress');
@@ -51,11 +49,7 @@ export const TasksList = ({ props = { class: '', header: '', tasks: [] } }) => {
         <h6>{props.header}:</h6>
       </li>
 
-      {props.tasks.length
-        ? props.tasks.map((task) => (
-            <TaskItem props={{ task, updateData }} key={task.taskId} />
-          ))
-        : null}
+      {list.length ? list.map((task) => <TaskItem props={{ task, updateData }} key={task.taskId} />) : null}
     </ul>
   );
 };

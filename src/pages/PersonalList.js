@@ -8,14 +8,15 @@ import { ListFilter } from '../components/ListFilter';
 import { DataContext } from '../context/DataContext';
 
 export const PersonalList = () => {
-  const tabs = useRef(null);
-  const { state, changeToken } = useContext(AuthContext);
+  const { state } = useContext(AuthContext);
   const [setState, stateData] = useContext(DataContext);
   const [getData, loading] = useFetchData();
 
   useEffect(() => {
-    getData(`/users/${state.uid}/tasks`);
-  }, []);
+    if (state) {
+      getData(`/users/${state.uid}/tasks`);
+    }
+  }, [state]);
 
   function dataFilter(value) {
     getData(`/users/${state.uid}/tasks`, value);
@@ -23,46 +24,35 @@ export const PersonalList = () => {
 
   return (
     <>
-      <p> Урурур </p>
+      <h1>Мои заявочки...</h1>
       <hr />
       <ListFilter submitAction={dataFilter} />
-      <div className="row">
-        <h3>Мои заявочки...</h3>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <ul className="tabs" ref={tabs}>
-              {stateData.length
-                ? stateData.map((item) => {
-                    return (
-                      <li className="tab col s3 m6" key={item[0].taskId}>
-                        <a href={'#' + item[0].status} className="indigo-text">
-                          {item[0].status}
-                        </a>
-                      </li>
-                    );
-                  })
-                : null}
-            </ul>
-            {stateData.length
-              ? stateData.map((item) => {
-                  return (
-                    <div key={item[0].taskId} id={item[0].status}>
-                      <TasksList
-                        props={{
-                          class: 'white black-text',
-                          header: item[0].status,
-                          tasks: item,
-                        }}
-                      />
-                    </div>
-                  );
-                })
-              : null}
-          </>
-        )}
-      </div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="row">
+          {stateData.length ? (
+            <>
+              {' '}
+              {stateData.map((item) => {
+                return (
+                  <div className="col s12 m12 l6" key={item[0].taskId}>
+                    <TasksList
+                      props={{
+                        class: `status-${item[0].status}`,
+                        header: item[0].status.toUpperCase(),
+                        tasks: item,
+                      }}
+                    />
+                  </div>
+                );
+              })}{' '}
+            </>
+          ) : (
+            <p className="grey-text flow-text"> Здесь пока ничего нет... </p>
+          )}
+        </div>
+      )}
     </>
   );
 };

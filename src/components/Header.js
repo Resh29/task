@@ -7,16 +7,18 @@ import { useMessage } from '../hooks/message.hook';
 export const Header = () => {
   const history = useHistory();
   const message = useMessage();
+  const sidenav = useRef(null);
   const { state, setState, isAdmin } = useContext(AuthContext);
   useEffect(() => {
     if (window.M) {
       const elems = document.querySelectorAll('.sidenav');
 
       const instances = window.M.Sidenav.init(elems);
+
+      const dropdown = document.querySelectorAll('.dropdown-trigger');
+      window.M.Dropdown.init(dropdown);
     }
   });
-
-  const sidenav = useRef(null);
 
   const logout = () => {
     setState(null);
@@ -27,15 +29,12 @@ export const Header = () => {
       .then(() => {
         message('logout/message');
       });
+    localStorage.removeItem('task-user-refresh-token');
   };
   return (
     <div>
       <nav className="navbar indigo darken-4">
         <div className="nav-wrapper ">
-          <a href="#!" className="brand-logo">
-            Navbar
-          </a>
-
           {state ? (
             <>
               <a href="#" data-target="mobile-demo" className="sidenav-trigger">
@@ -43,14 +42,33 @@ export const Header = () => {
               </a>
               <ul className="right">
                 <li>
-                  <NavLink to="/"> Home </NavLink>
+                  <NavLink to="/" className="waves-effect waves-light">
+                    Главная
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/my_list"> My tasks list </NavLink>
+                  <NavLink to="/my_list" className="waves-effect waves-light">
+                    Мои заявки
+                  </NavLink>
                 </li>
                 {isAdmin ? (
                   <li>
-                    <NavLink to="/create"> Create new tasks </NavLink>
+                    <a className="dropdown-trigger  " href="#" data-target="dropdown1">
+                      Управление заявками
+                    </a>
+
+                    <ul id="dropdown1" className="dropdown-content">
+                      <li>
+                        <NavLink to="/create" className="indigo-text">
+                          Добавить
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/all" className="indigo-text">
+                          Все заявки
+                        </NavLink>
+                      </li>
+                    </ul>
                   </li>
                 ) : null}
 
@@ -62,7 +80,7 @@ export const Header = () => {
                       logout();
                     }}
                   >
-                    Logout
+                    Выйти
                   </a>
                 </li>
               </ul>
@@ -73,14 +91,29 @@ export const Header = () => {
 
       <ul className="sidenav" id="mobile-demo" ref={sidenav}>
         <li>
-          <NavLink to="/"> Home </NavLink>
+          <NavLink to="/"> Главная </NavLink>
         </li>
         <li>
-          <NavLink to="/my_list"> My tasks list </NavLink>
+          <NavLink to="/my_list"> Мои заявки </NavLink>
         </li>
         {isAdmin ? (
           <li>
-            <NavLink to="/create"> Create new tasks </NavLink>
+            <a className="dropdown-trigger  " href="#" data-target="dropdown2">
+              Управление заявками
+            </a>
+
+            <ul id="dropdown2" className="dropdown-content">
+              <li>
+                <NavLink to="/create" className="indigo-text">
+                  Добавить
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/all" className="indigo-text">
+                  Все заявки
+                </NavLink>
+              </li>
+            </ul>
           </li>
         ) : null}
         <li>
@@ -91,7 +124,7 @@ export const Header = () => {
               logout();
             }}
           >
-            Logout
+            Выйти
           </a>
         </li>
       </ul>
