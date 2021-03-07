@@ -33,28 +33,22 @@ export const ListFilter = ({ submitAction }) => {
           submitAction(dateInput.current.value);
         }}
       >
-        <div className="col m4 input-field">
-          <i className="material-icons prefix "> date_range</i>
+        <fieldset style={{ borderRadius: '5px' }}>
+          <legend className="grey-text"> Заявки по дате: </legend>
+          <div className="col m2 input-field">
+            <i className="material-icons prefix "> date_range</i>
 
-          <input
-            ref={dateInput}
-            id="dateInput"
-            type="text"
-            className="datepicker"
-            placeholder="Выберите дату"
-          />
-        </div>
-        <div className="col s12 m2 input-field">
-          <input className="btn" type="submit" value="Применить" />
-        </div>
-        <div className="col m2 offset-m4 input-field">
-          <span className="flow-text"> {currentDate} </span>
-        </div>
+            <input ref={dateInput} id="dateInput" type="text" className="datepicker" placeholder="Выберите дату" />
+          </div>
+          <div className="col s12 m2 input-field">
+            <input className="btn" type="submit" value="Применить" />
+          </div>
+          <div className="col m2 offset-m4 input-field">
+            <span className="flow-text"> {currentDate} </span>
+          </div>
+        </fieldset>
       </form>
-      <button
-        className="btn-flat blue-text date-filter-toggler"
-        onClick={formToggler}
-      >
+      <button className="btn-flat blue-text date-filter-toggler" onClick={formToggler}>
         {visibility ? 'hide' : 'Поиск по дате...'}
       </button>
     </>

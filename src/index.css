@@ -1,5 +1,6 @@
 @import '~materialize-css/dist/css/materialize.min.css';
 @import './css/modal';
+@import './css/navbar';
 
 body {
   min-height: 100vh;
@@ -16,6 +17,10 @@ code {
 
 .App {
   min-height: 100vh;
+}
+
+.home-page .home-page__heading {
+  margin-bottom: 2rem;
 }
 
 .collapsible-header {
@@ -57,7 +62,7 @@ code {
 
 .main {
   height: 100%;
-  padding-top: 5rem;
+  padding-top: 3rem;
 }
 
 .navbar {
@@ -73,7 +78,6 @@ code {
 
 .date-filter {
   transition: all 0.4s;
-  max-height: 200px;
 
   overflow: hidden;
 }

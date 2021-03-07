@@ -1,6 +1,5 @@
-import { React, useEffect, useContext, useCallback } from 'react';
+import { React, useEffect, useContext } from 'react';
 import { TasksList } from '../components/TasksList';
-import firebase from 'firebase';
 import { Loader } from '../components/Loader';
 import { useFetchData } from '../hooks/db.get';
 import { DataContext } from '../context/DataContext';
@@ -19,9 +18,9 @@ export const HomePage = () => {
   }
 
   return (
-    <>
-      <p className="flow-text"> Добро пожаловать... Снова </p>
-      <hr />
+    <section className="page">
+      <h1> Добро пожаловать... Снова </h1>
+
       {loading ? (
         <Loader />
       ) : (
@@ -44,10 +43,10 @@ export const HomePage = () => {
               })}
             </div>
           ) : (
-            <p>No tasks </p>
+            <p className="flow-text grey-text"> Нa сегодня заявок нет... </p>
           )}
         </>
       )}
-    </>
+    </section>
   );
 };

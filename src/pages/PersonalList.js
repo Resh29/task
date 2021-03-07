@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
 import { TasksList } from '../components/TasksList';
@@ -25,7 +25,6 @@ export const PersonalList = () => {
   return (
     <>
       <h1>Мои заявочки...</h1>
-      <hr />
       <ListFilter submitAction={dataFilter} />
       {loading ? (
         <Loader />

@@ -1,4 +1,3 @@
-import './App.css';
 import React, { useContext, useState, useEffect } from 'react';
 import 'materialize-css';
 import { Header } from './components/Header';
