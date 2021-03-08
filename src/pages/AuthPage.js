@@ -95,11 +95,11 @@ export const AuthPage = () => {
                 />
                 <label htmlFor="password">Password</label>
               </div>
-              <div className="form-footer row" style={{ justifyContent: 'space-evenly', display: 'flex' }}>
-                <div>
-                  <input type="submit" className="btn " value="login" onClick={() => login(user)} />
+              <div className=" col s12">
+                <div className="col">
+                  <input type="submit" className="btn" value="login" onClick={() => login(user)} />
                 </div>
-                <div>
+                <div className="col" style={{ float: 'right' }}>
                   <input type="submit" className="btn blue" value="register" onClick={openModal} />
                 </div>
               </div>

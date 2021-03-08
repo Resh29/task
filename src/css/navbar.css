@@ -1,0 +1,56 @@
+.sidebar {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(110, 110, 110, 0.3);
+  top: 0;
+  z-index: 1;
+  transform: translateX(-100%);
+}
+.sidebar-active {
+  transform: translateX(0);
+}
+.sidebar-active .side-nav {
+  transform: translateX(0);
+}
+.side-nav {
+  transform: translateX(-100%);
+  transition: all 0.3s;
+  height: 100%;
+  margin-top: 0;
+  padding-top: 3rem;
+  min-width: 280px;
+  display: inline-block;
+  background-color: #fff;
+}
+.side-nav .side-nav-item {
+  padding: 0.75rem;
+  margin-left: 1.5rem;
+  transition: all 0.3s;
+}
+
+.side-nav .side-nav-item a {
+  color: black;
+  text-transform: capitalize;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.side-nav .side-nav-item a:hover {
+  color: rgb(70, 70, 70);
+}
+.side-nav .dropdown__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+.side-nav .dropdown-active {
+  max-height: 500px;
+}
+.dropdown__content .dropdown-item {
+  padding: 0.75rem;
+
+  transition: all 0.3s;
+}
+.dropdown__content .dropdown-item:hover {
+  background-color: #f5f5f5;
+}
