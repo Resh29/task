@@ -10,15 +10,11 @@ export const TaskItem = ({ props }) => {
 
   const history = useHistory();
 
-  function toggle() {
-    !style.includes('open') ? setStyle(style + ' open') : setStyle(style.replace('open', ''));
-  }
   function update() {
     props.updateData({ ...props.task, user: state.uid });
   }
   function detail() {
     history.push(`/task/${props.task.taskNumber}`, props.task.taskNumber);
-    console.log(props.task.taskNumber);
   }
   function handler() {
     if (props.task.status === 'awaiting') {
@@ -29,7 +25,7 @@ export const TaskItem = ({ props }) => {
   }
   useEffect(() => {
     const l = history.location.pathname;
-    console.log(state);
+
     if (l.includes('all')) {
       setLocation(true);
     }
@@ -52,22 +48,13 @@ export const TaskItem = ({ props }) => {
 
         <h6>
           {' '}
-          {props.task.title} <ListHandlerIcon params={{ status: props.task.status, handler }} />
+          {props.task.title}{' '}
+          <ListHandlerIcon params={{ status: props.task.status, handler }} />
         </h6>
 
         <p>
           Type: {props.task.type} <span className="badge">Date: {props.task.date}</span>
         </p>
-
-        {/* <a
-          href="#!"
-          onClick={(e) => {
-            e.preventDefault();
-            toggle();
-          }}
-        >
-          details...
-        </a> */}
       </div>
       <div className={style}>
         <p>ID {props.task.taskId}</p>

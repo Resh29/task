@@ -15,7 +15,7 @@ export const useRoutes = () => {
       <Route path="/" exact>
         <HomePage />
       </Route>
-      <Route path="/my_list" exact>
+      <Route path="/my-list" exact>
         <PersonalList />
       </Route>
       <Route path="/auth">

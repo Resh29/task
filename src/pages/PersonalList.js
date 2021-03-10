@@ -24,7 +24,7 @@ export const PersonalList = () => {
 
   return (
     <>
-      <h1>Мои заявочки...</h1>
+      <h2>Мои заявочки...</h2>
       <ListFilter submitAction={dataFilter} />
       {loading ? (
         <Loader />

@@ -20,6 +20,7 @@ export const SinglePage = () => {
   const [getData, data, loading] = useGetSingleTask();
   useEffect(() => {
     getData(`/tasks/${location.state}`);
+    console.log(history);
   }, []);
 
   const changeHandler = (e) => {
@@ -48,13 +49,16 @@ export const SinglePage = () => {
       message('limited-by-user-rights');
     }
   };
+
+  // При удалении таска осталась в "мои заявки" пользователя
   const deleteTasks = () => {
     if (data.user === state.uid || isAdmin) {
       setData(`deleted/${location.state}`, { ...data, satatus: 'deleted' });
       remove(`/users/${state.uid}/tasks/${location.state}`);
       remove(`tasks/${location.state}`);
       message('task-remove');
-      history.push('/');
+      // history.push('/');
+      history.goBack();
     } else {
       message('limited-by-user-rights');
     }
