@@ -97,10 +97,20 @@ export const AuthPage = () => {
               </div>
               <div className=" col s12">
                 <div className="col">
-                  <input type="submit" className="btn" value="login" onClick={() => login(user)} />
+                  <input
+                    type="submit"
+                    className="btn"
+                    value="login"
+                    onClick={() => login(user)}
+                  />
                 </div>
                 <div className="col" style={{ float: 'right' }}>
-                  <input type="submit" className="btn blue" value="register" onClick={openModal} />
+                  <input
+                    type="submit"
+                    className="btn blue"
+                    value="register"
+                    onClick={openModal}
+                  />
                 </div>
               </div>
             </div>

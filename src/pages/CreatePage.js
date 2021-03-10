@@ -38,7 +38,9 @@ export const Create = () => {
   const saveTasks = async () => {
     try {
       for (const task of tasks) {
-        let taskNumber = (await firebase.database().ref('task_number').once('value')).val();
+        let taskNumber = (
+          await firebase.database().ref('task_number').once('value')
+        ).val();
         await firebase
           .database()
           .ref(`tasks/${taskNumber + 1}`)
@@ -63,10 +65,17 @@ export const Create = () => {
   return (
     <div className="row">
       <form className="col s12" style={{ marginTop: '2rem' }} onSubmit={addTask}>
-        <h3> New task </h3>
+        <h2> New task </h2>
         <div className="row">
           <div className="input-field col s12 m6">
-            <input id="title" type="text" name="title" required className="validate" onChange={changeHandler} />
+            <input
+              id="title"
+              type="text"
+              name="title"
+              required
+              className="validate"
+              onChange={changeHandler}
+            />
             <label htmlFor="title">Заголовок</label>
           </div>
           <div className="input-field col s12 m6">
@@ -81,15 +90,36 @@ export const Create = () => {
             </select>
           </div>
           <div className="input-field col s12 m6">
-            <input required id="address" type="text" name="address" className="validate" onChange={changeHandler} />
+            <input
+              required
+              id="address"
+              type="text"
+              name="address"
+              className="validate"
+              onChange={changeHandler}
+            />
             <label htmlFor="address">Адрес</label>
           </div>
           <div className="input-field col s12 m6">
-            <input required id="techInfo" type="text" name="techInfo" className="validate" onChange={changeHandler} />
+            <input
+              required
+              id="techInfo"
+              type="text"
+              name="techInfo"
+              className="validate"
+              onChange={changeHandler}
+            />
             <label htmlFor="techInfo">Техинформация</label>
           </div>
           <div className="input-field col s12 m6">
-            <input required id="customer" type="text" name="customer" className="validate" onChange={changeHandler} />
+            <input
+              required
+              id="customer"
+              type="text"
+              name="customer"
+              className="validate"
+              onChange={changeHandler}
+            />
             <label htmlFor="customer">Клиент</label>
           </div>
           <div className="input-field col s12 m6">
@@ -121,7 +151,12 @@ export const Create = () => {
 
             <label htmlFor="text"> Текст заявки </label>
           </div>
-          <input type="submit" value="Добавить" className="btn" style={{ marginLeft: '1rem' }} />
+          <input
+            type="submit"
+            value="Добавить"
+            className="btn"
+            style={{ marginLeft: '1rem' }}
+          />
         </div>
       </form>
 

@@ -13,7 +13,7 @@ export const AllTasks = () => {
 
   return (
     <>
-      <h1> Управление заявками </h1>
+      <h2> Управление заявками </h2>
       <hr />
       {loading ? (
         <Loader />

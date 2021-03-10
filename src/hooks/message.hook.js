@@ -19,7 +19,7 @@ export const useMessage = () => {
   function f(message = '') {
     if (window.M) {
       let html = errorMessages[message] || 'Что-то пошло не так... ' + message;
-      return window.M.toast({ html });
+      return window.M.toast({ html, displayLength: 1000 });
     }
   }
 

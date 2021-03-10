@@ -18,7 +18,9 @@ export const useFetchData = () => {
       if (date === 'all') {
         data = (await db.ref(`${path}`).once('value')).val();
       } else {
-        data = (await db.ref(`${path}`).orderByChild('date').equalTo(now).once('value')).val();
+        data = (
+          await db.ref(`${path}`).orderByChild('date').equalTo(now).once('value')
+        ).val();
       }
 
       if (data) {
@@ -28,8 +30,9 @@ export const useFetchData = () => {
         }));
         const keys = [...new Set([...res].map((el) => el.status))];
         const filteredData = [];
-        keys.forEach((item) => filteredData.push([...res.filter((el) => el.status === item)]));
-        console.log(filteredData);
+        keys.forEach((item) =>
+          filteredData.push([...res.filter((el) => el.status === item)])
+        );
         setState(filteredData.reverse());
       } else {
         message('no-data');

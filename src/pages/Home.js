@@ -19,7 +19,7 @@ export const HomePage = () => {
 
   return (
     <section className="page">
-      <h1> Добро пожаловать... Снова </h1>
+      <h2> Добро пожаловать... Снова </h2>
 
       {loading ? (
         <Loader />

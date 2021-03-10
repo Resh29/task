@@ -3,10 +3,10 @@
 @import './css/navbar';
 
 body {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -55,6 +55,7 @@ code {
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: rgba(75, 75, 75, 0.452);
 }
 .loader .preloader-wrapper {
   margin: auto;
@@ -115,4 +116,7 @@ code {
   .date-filter-close {
     max-height: 0px;
   }
+}
+
+@media screen and (max-width: 420px) {
 }
