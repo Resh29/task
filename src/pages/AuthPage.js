@@ -79,6 +79,7 @@ export const AuthPage = () => {
                   onChange={(e) => {
                     changeHandler(e);
                   }}
+                  minLength="6"
                 />
                 <label htmlFor="email">Email</label>
               </div>
@@ -92,6 +93,7 @@ export const AuthPage = () => {
                   onChange={(e) => {
                     changeHandler(e);
                   }}
+                  minLength="6"
                 />
                 <label htmlFor="password">Password</label>
               </div>

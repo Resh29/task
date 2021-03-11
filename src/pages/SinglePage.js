@@ -34,13 +34,13 @@ export const SinglePage = () => {
           status: 'done',
           comment,
         });
-        setData(`users/${state.uid}/tasks/${data.taskNumber}`, {
+        setData(`users/${data.user}/tasks/${data.taskNumber}`, {
           ...data,
           status: 'done',
           comment,
         });
         message('saved-successfully');
-        history.push('/my_list');
+        history.push('/my-list');
       } else {
         message('save-error');
         return;
@@ -54,10 +54,10 @@ export const SinglePage = () => {
   const deleteTasks = () => {
     if (data.user === state.uid || isAdmin) {
       setData(`deleted/${location.state}`, { ...data, satatus: 'deleted' });
-      remove(`/users/${state.uid}/tasks/${location.state}`);
+      remove(`/users/${data.user}/tasks/${location.state}`);
       remove(`tasks/${location.state}`);
       message('task-remove');
-      // history.push('/');
+
       history.goBack();
     } else {
       message('limited-by-user-rights');
@@ -112,7 +112,9 @@ export const SinglePage = () => {
                     />
                     <span
                       className="grey-text"
-                      style={comment.length >= minLength ? { opacity: '0' } : { opacity: '1' }}
+                      style={
+                        comment.length >= minLength ? { opacity: '0' } : { opacity: '1' }
+                      }
                     >
                       Комментарий не должен быть короче {minLength} символов
                     </span>
@@ -132,7 +134,11 @@ export const SinglePage = () => {
               <button className="btn blue" onClick={saveTasks} disabled={data.comment}>
                 Сохранить
               </button>
-              <button className="btn red" onClick={deleteTasks} disabled={data.comment && !isAdmin}>
+              <button
+                className="btn red"
+                onClick={deleteTasks}
+                disabled={data.comment && !isAdmin}
+              >
                 Удалить
               </button>
             </div>
