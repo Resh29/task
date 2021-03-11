@@ -38,10 +38,12 @@ export const TaskItem = ({ props }) => {
   return (
     <li>
       <div className="collapsible-header">
-        <p>
-          {' '}
-          Исполнитель: <span className="badge"> {props.task.name} </span>{' '}
-        </p>
+        {props.task?.name ? (
+          <p>
+            Исполнитель: <span className="badge"> {props.task.name} </span>{' '}
+          </p>
+        ) : null}
+
         <div>
           <hr />
         </div>

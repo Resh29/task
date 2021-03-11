@@ -13,18 +13,18 @@ export function ListHandlerIcon({ params }) {
   };
 
   return (
-    <span className="badge">
-      <a href="#" className="to-detail">
-        <i
-          className=" small material-icons"
-          onClick={(e) => {
-            e.preventDefault();
+    <span
+      className="badge"
+      style={{ zIndex: '11' }}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
 
-            params.handler();
-          }}
-        >
-          {iconType[status]}
-        </i>
+        params.handler();
+      }}
+    >
+      <a href="#" className="to-detail">
+        <i className=" small material-icons">{iconType[status]}</i>
       </a>
     </span>
   );

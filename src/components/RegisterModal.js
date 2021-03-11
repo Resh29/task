@@ -37,25 +37,42 @@ export const RegisterModal = ({ initialInfo }) => {
           <form className="_modal__register-form" ref={form}>
             <div className="row">
               <div className="input-field col s12">
-                <input id="name" type="text" name="name" className="validate" onChange={changeHandler} />
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  className="validate"
+                  onChange={changeHandler}
+                  minLength="4"
+                />
 
                 <label htmlFor="name">Имя</label>
               </div>
               <div className="input-field col s12">
-                <input id="last-name" type="text" name="lastName" className="validate" onChange={changeHandler} />
+                <input
+                  id="last-name"
+                  type="text"
+                  name="lastName"
+                  className="validate"
+                  onChange={changeHandler}
+                  minLength="4"
+                />
 
                 <label htmlFor="last-name">Фамилия</label>
               </div>
               <div className="input-field col s12">
-                <input id="phone" type="text" name="phone" className="validate" onChange={changeHandler} />
+                <input
+                  id="phone"
+                  type="text"
+                  name="phone"
+                  className="validate"
+                  onChange={changeHandler}
+                  minLength="10"
+                />
 
                 <label htmlFor="phone">Телефон</label>
               </div>
             </div>
-            <blockquote>
-              {' '}
-              Ваш логин: <span className="blue-text">{userInfo.email} </span>{' '}
-            </blockquote>
           </form>
         </div>
         <div className="_modal__footer">

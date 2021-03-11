@@ -20,7 +20,9 @@ export const TasksList = ({ props = { class: '', header: '', tasks: [] } }) => {
   const { state } = useContext(AuthContext);
 
   const updateData = async (object) => {
-    const name = (await firebase.database().ref(`/users/${state.uid}/info/name`).once('value')).val();
+    const name = (
+      await firebase.database().ref(`/users/${state.uid}/info/name`).once('value')
+    ).val();
 
     const updated = {
       ...object,
@@ -28,7 +30,9 @@ export const TasksList = ({ props = { class: '', header: '', tasks: [] } }) => {
       name,
     };
     try {
-      const check = (await firebase.database().ref(`/tasks/${object.taskNumber}/status`).once('value')).val();
+      const check = (
+        await firebase.database().ref(`/tasks/${object.taskNumber}/status`).once('value')
+      ).val();
 
       if (check !== 'awaiting') {
         message('task-already-in-progress');
@@ -49,7 +53,9 @@ export const TasksList = ({ props = { class: '', header: '', tasks: [] } }) => {
         <h6>{props.header}:</h6>
       </li>
 
-      {list.length ? list.map((task) => <TaskItem props={{ task, updateData }} key={task.taskId} />) : null}
+      {list.length
+        ? list.map((task) => <TaskItem props={{ task, updateData }} key={task.taskId} />)
+        : null}
     </ul>
   );
 };

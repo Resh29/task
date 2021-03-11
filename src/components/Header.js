@@ -19,7 +19,20 @@ export const Header = () => {
   };
   const navbarDropdown = (e) => {
     e.preventDefault();
-    setNavbarDropdownState((v) => !v);
+    console.log(e.currentTarget);
+
+    const listener = () => {
+      setNavbarDropdownState((v) => !v);
+    };
+    if (!navbarDropdownState) {
+      setNavbarDropdownState((v) => !v);
+      setTimeout(
+        () => document.body.addEventListener('click', listener, { once: true }),
+        0
+      );
+    } else {
+      setNavbarDropdownState((v) => !v);
+    }
   };
 
   const navClickHandler = (e) => {
@@ -87,7 +100,10 @@ export const Header = () => {
                       Управление заявками
                     </a>
 
-                    <ul className="navbar-dropdown__content">
+                    <ul
+                      className="navbar-dropdown__content"
+                      onClick={(e) => setNavbarDropdownState((v) => !v)}
+                    >
                       <li>
                         <NavLink to="/create" className="indigo-text">
                           Добавить
