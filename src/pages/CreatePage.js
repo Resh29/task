@@ -3,6 +3,7 @@ import { TasksList } from '../components/TasksList';
 import firebase from 'firebase';
 import { useSetData } from '../hooks/db.set';
 import { useMessage } from '../hooks/message.hook';
+import { DateParser } from '../hooks/dateParser';
 
 export const Create = () => {
   const [state, setState] = useState(null);
@@ -24,7 +25,7 @@ export const Create = () => {
 
   const addTask = (e) => {
     e.preventDefault();
-    const date = new Date(Date.now()).toLocaleDateString();
+    const date = DateParser(new Date());
     const taskId = Date.now();
     const status = 'awaiting';
 
@@ -126,7 +127,7 @@ export const Create = () => {
             <input
               required
               id="customerId"
-              type="text"
+              type="number"
               name="customerId"
               className="validate"
               onChange={changeHandler}

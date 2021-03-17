@@ -2,11 +2,10 @@ import React, { useContext, useState, useEffect } from 'react';
 import 'materialize-css';
 import { Header } from './components/Header';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { useRoutes } from './routes';
+import { useRoutes, useRegisterRoute } from './routes';
 import { AuthContext } from './context/AuthContext';
 import firebase from 'firebase';
 import { Loader } from './components/Loader';
-import { AuthPage } from './pages/AuthPage';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyC44FQactkSJvBs7Z7mKwyxuCOGECeFiJ0',
@@ -43,6 +42,7 @@ function App() {
   }, []);
 
   const routes = useRoutes();
+  const register = useRegisterRoute();
 
   return (
     <div className="App">
@@ -53,9 +53,7 @@ function App() {
         ) : authState ? (
           <div className="main container">{routes}</div>
         ) : (
-          <div className="main container">
-            <AuthPage />
-          </div>
+          <div className="main container">{register}</div>
         )}
       </Router>
     </div>

@@ -20,7 +20,6 @@ export const SinglePage = () => {
   const [getData, data, loading] = useGetSingleTask();
   useEffect(() => {
     getData(`/tasks/${location.state}`);
-    console.log(history);
   }, []);
 
   const changeHandler = (e) => {
@@ -74,6 +73,13 @@ export const SinglePage = () => {
             <p className="flow-text">
               Заявка # {data.taskNumber}
               <span className="badge grey lighten-4">Статус: {data.status}</span>
+            </p>
+            <p className="flow-text">
+              {' '}
+              Исполнитель:{' '}
+              <span className="badge">
+                {data.name} {data.lastName}{' '}
+              </span>{' '}
             </p>
             <h4 className="title">{data.title}</h4>
             <ul className="collection">

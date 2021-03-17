@@ -24,7 +24,7 @@ export const useRegister = () => {
     try {
       const result = await firebase
         .auth()
-        .createUserWithEmailAndPassword(userData.user.email, userData.user.password)
+        .createUserWithEmailAndPassword(userData.email, userData.password)
         .then((res) => res.user)
         .catch((error) => {
           message(error.code);
@@ -34,8 +34,15 @@ export const useRegister = () => {
         await firebase
           .database()
           .ref(`/users/${result.uid}`)
-          .set({ uid: result.uid, isAdmin: false, info: { ...userData.userInfo } });
-        history.push('/');
+          .set({
+            uid: result.uid,
+            isAdmin: false,
+            name: userData.name,
+            lastName: userData.lastName,
+            phone: userData.phone,
+            email: userData.email,
+          })
+          .then(history.push('/'));
       }
     } catch (error) {
       message(error.code);

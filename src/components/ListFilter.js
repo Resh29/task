@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { DateParser } from '../hooks/dateParser';
 
 export const ListFilter = ({ submitAction }) => {
   const dateInput = useRef(null);
@@ -10,7 +11,7 @@ export const ListFilter = ({ submitAction }) => {
     format: 'dd.mm.yyyy',
   };
   useEffect(() => {
-    const date = new Date(Date.now()).toLocaleDateString();
+    const date = DateParser(new Date());
     setDate(date);
     if (window.M) {
       const elems = document.querySelectorAll('.datepicker');
@@ -38,7 +39,13 @@ export const ListFilter = ({ submitAction }) => {
           <div className="col m2 input-field">
             <i className="material-icons prefix "> date_range</i>
 
-            <input ref={dateInput} id="dateInput" type="text" className="datepicker" placeholder="Выберите дату" />
+            <input
+              ref={dateInput}
+              id="dateInput"
+              type="text"
+              className="datepicker"
+              placeholder="Выберите дату"
+            />
           </div>
           <div className="col s12 m2 input-field">
             <input className="btn" type="submit" value="Применить" />
