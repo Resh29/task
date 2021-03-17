@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import firebase from 'firebase/app';
 import { useMessage } from './message.hook';
 import { DataContext } from '../context/DataContext';
+import { DateParser } from './dateParser';
 
 export const useFetchData = () => {
   const db = firebase.database();
@@ -12,7 +13,7 @@ export const useFetchData = () => {
   const message = useMessage();
 
   async function get(path, date) {
-    const now = date || new Date(Date.now()).toLocaleDateString();
+    const now = date || DateParser(new Date());
     try {
       let data = {};
       if (date === 'all') {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import firebase from 'firebase';
@@ -19,7 +19,6 @@ export const Header = () => {
   };
   const navbarDropdown = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget);
 
     const listener = () => {
       setNavbarDropdownState((v) => !v);
@@ -45,13 +44,14 @@ export const Header = () => {
 
   const logout = () => {
     setState(null);
-    history.push('/auth');
+    message('logout/message');
     firebase
       .auth()
       .signOut()
       .then(() => {
-        message('logout/message');
+        window.location.href = '/';
       });
+
     localStorage.removeItem('task-user-refresh-token');
   };
   return (

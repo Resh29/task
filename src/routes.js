@@ -1,5 +1,5 @@
-import { React } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { React, useState } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { AuthPage } from './pages/AuthPage';
 import { Create } from './pages/CreatePage';
@@ -8,6 +8,7 @@ import { NoMatch } from './pages/NoMatch';
 import { PersonalList } from './pages/PersonalList';
 import { SinglePage } from './pages/SinglePage';
 import { AllTasks } from './pages/AllTasks';
+import { RegistrationPage } from './pages/RegistrationPage';
 
 export const useRoutes = () => {
   return (
@@ -33,6 +34,19 @@ export const useRoutes = () => {
 
       <Route path="*" exact>
         <NoMatch />
+      </Route>
+    </Switch>
+  );
+};
+
+export const useRegisterRoute = () => {
+  return (
+    <Switch>
+      <Route path="/registration">
+        <RegistrationPage />
+      </Route>
+      <Route path="/">
+        <AuthPage />
       </Route>
     </Switch>
   );

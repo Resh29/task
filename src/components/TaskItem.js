@@ -5,7 +5,7 @@ import { ListHandlerIcon } from './ListHandlerIcon';
 
 export const TaskItem = ({ props }) => {
   const [style, setStyle] = useState('collapsible-body');
-  const [location, setLocation] = useState(false);
+
   const { state } = useContext(AuthContext);
 
   const history = useHistory();
@@ -23,20 +23,14 @@ export const TaskItem = ({ props }) => {
       detail();
     }
   }
-  useEffect(() => {
-    const l = history.location.pathname;
 
-    if (l.includes('all')) {
-      setLocation(true);
-    }
-  }, [history.location.pathname]);
   useEffect(() => {
     const elems = document.querySelectorAll('.collapsible');
     window.M.Collapsible.init(elems);
   }, []);
 
   return (
-    <li>
+    <li style={{ borderBottom: '2px #ccc solid' }}>
       <div className="collapsible-header">
         {props.task?.name ? (
           <p>

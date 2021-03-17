@@ -15,19 +15,24 @@ export const TasksList = ({ props = { class: '', header: '', tasks: [] } }) => {
 
   useEffect(() => {
     setList(props.tasks);
+    return () => setList([]);
   }, [props]);
 
   const { state } = useContext(AuthContext);
 
   const updateData = async (object) => {
     const name = (
-      await firebase.database().ref(`/users/${state.uid}/info/name`).once('value')
+      await firebase.database().ref(`/users/${state.uid}/name`).once('value')
+    ).val();
+    const lastName = (
+      await firebase.database().ref(`/users/${state.uid}/lastName`).once('value')
     ).val();
 
     const updated = {
       ...object,
       status: 'progress',
       name,
+      lastName,
     };
     try {
       const check = (
