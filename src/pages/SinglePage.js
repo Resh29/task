@@ -70,6 +70,17 @@ export const SinglePage = () => {
           <Loader />
         ) : data ? (
           <div className="row">
+            <a
+              href="#!"
+              className="waves-effect btn white grey-text"
+              onClick={(e) => {
+                e.preventDefault();
+                history.goBack();
+              }}
+            >
+              {' '}
+              Назад{' '}
+            </a>
             <p className="flow-text">
               Заявка # {data.taskNumber}
               <span className="badge grey lighten-4">Статус: {data.status}</span>

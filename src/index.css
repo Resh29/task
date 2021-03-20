@@ -103,6 +103,20 @@ code {
   height: 100%;
 }
 
+.refresh-status-icon {
+  opacity: 0.4;
+  animation: rotate-refresh 1s infinite;
+}
+
+@keyframes rotate-refresh {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @media screen and (max-width: 992px) {
   .nav-wrapper .right {
     visibility: hidden;

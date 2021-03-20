@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 export function ListHandlerIcon({ params }) {
   const [status, setStatus] = useState(null);
   const [isOpen, setIsOpen] = useState(true);
+  const [isAllPage, setIsAllPage] = useState(false);
   const location = useLocation();
+  const history = useHistory();
   useEffect(() => {
     setStatus(params.status);
   }, [params]);
 
   useEffect(() => {
-    if (
-      location.pathname === '/create' ||
-      (location.pathname === '/all' && status === 'awaiting')
-    ) {
+    if (location.pathname === '/create') {
       setIsOpen(false);
+    }
+    if (location.pathname === '/all') {
+      setIsAllPage(true);
     }
   }, [status]);
 
@@ -27,20 +29,37 @@ export function ListHandlerIcon({ params }) {
   return (
     <>
       {isOpen ? (
-        <span
-          className="badge"
-          style={{ zIndex: '11' }}
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
+        isAllPage ? (
+          <span
+            className="badge"
+            style={{ zIndex: '11' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
 
-            params.handler();
-          }}
-        >
-          <a href="#" className="to-detail">
-            <i className=" small material-icons">{iconType[status]}</i>
-          </a>
-        </span>
+              history.push(`/task/${params.number}`, params.number);
+            }}
+          >
+            <a href="#" className="to-detail">
+              <i className=" small material-icons"> create </i>
+            </a>
+          </span>
+        ) : (
+          <span
+            className="badge"
+            style={{ zIndex: '11' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+
+              params.handler();
+            }}
+          >
+            <a href="#" className="to-detail">
+              <i className=" small material-icons">{iconType[status]}</i>
+            </a>
+          </span>
+        )
       ) : null}
     </>
   );

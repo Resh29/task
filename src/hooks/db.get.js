@@ -14,6 +14,7 @@ export const useFetchData = () => {
 
   async function get(path, date) {
     const now = date || DateParser(new Date());
+
     try {
       let data = {};
       if (date === 'all') {

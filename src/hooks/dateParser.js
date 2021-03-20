@@ -1,5 +1,5 @@
 export const DateParser = (date) => {
-  const currentDate = [date.getDate(), date.getMonth(), date.getFullYear()];
+  const currentDate = [date.getDate(), date.getMonth() + 1, date.getFullYear()];
   for (let i = 0; i < currentDate.length; i++) {
     currentDate[i] = currentDate[i].toString();
   }
