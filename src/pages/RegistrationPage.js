@@ -54,7 +54,6 @@ export const RegistrationPage = () => {
                   name="name"
                   className="validate"
                   onChange={changeHandler}
-                  minLength="4"
                   required
                 />
                 <label htmlFor="first_name">Имя</label>
@@ -66,7 +65,6 @@ export const RegistrationPage = () => {
                   name="lastName"
                   className="validate"
                   onChange={changeHandler}
-                  minLength="4"
                   required
                 />
                 <label htmlFor="lastName">Фамилия</label>

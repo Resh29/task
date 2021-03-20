@@ -45,7 +45,9 @@ export const TaskItem = ({ props }) => {
         <h6>
           {' '}
           {props.task.title}{' '}
-          <ListHandlerIcon params={{ status: props.task.status, handler }} />
+          <ListHandlerIcon
+            params={{ status: props.task.status, handler, number: props.task.taskNumber }}
+          />
         </h6>
 
         <p>
