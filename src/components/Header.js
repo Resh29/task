@@ -81,6 +81,11 @@ export const Header = () => {
                     Мои заявки
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink to="/about" className="waves-effect waves-light">
+                    О приложении
+                  </NavLink>
+                </li>
                 {isAdmin ? (
                   <li
                     className={
