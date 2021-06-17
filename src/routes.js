@@ -9,6 +9,7 @@ import { PersonalList } from './pages/PersonalList';
 import { SinglePage } from './pages/SinglePage';
 import { AllTasks } from './pages/AllTasks';
 import { RegistrationPage } from './pages/RegistrationPage';
+import { AboutPage } from './pages/AboutPage';
 
 export const useRoutes = () => {
   return (
@@ -30,6 +31,9 @@ export const useRoutes = () => {
       </Route>
       <Route path="/task/:id">
         <SinglePage />
+      </Route>
+      <Route path="/about" exact>
+        <AboutPage />
       </Route>
 
       <Route path="*" exact>

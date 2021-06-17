@@ -43,7 +43,7 @@ export const HomePage = () => {
         </div>
       ) : null}
 
-      <h2> Добро пожаловать... Снова </h2>
+      <h2> Добро пожаловать.</h2>
 
       {loading ? (
         <Loader />
